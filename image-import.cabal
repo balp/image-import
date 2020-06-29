@@ -1,0 +1,60 @@
+cabal-version: 1.12
+
+-- This file has been generated from package.yaml by hpack version 0.34.2.
+--
+-- see: https://github.com/sol/hpack
+
+name:           image-import
+version:        0.1.0.0
+description:    Please see the README on GitHub at <https://github.com/balp/image-import#readme>
+homepage:       https://github.com/balp/image-import#readme
+bug-reports:    https://github.com/balp/image-import/issues
+author:         Anders Arnholm
+maintainer:     anders@arnholm.se
+copyright:      2020 Anders Arnholm
+license:        BSD3
+license-file:   LICENSE
+build-type:     Simple
+extra-source-files:
+    README.md
+    ChangeLog.md
+
+source-repository head
+  type: git
+  location: https://github.com/balp/image-import
+
+library
+  exposed-modules:
+      Lib
+  other-modules:
+      Paths_image_import
+  hs-source-dirs:
+      src
+  build-depends:
+      base >=4.7 && <5
+  default-language: Haskell2010
+
+executable image-import-exe
+  main-is: Main.hs
+  other-modules:
+      Paths_image_import
+  hs-source-dirs:
+      app
+  ghc-options: -threaded -rtsopts -with-rtsopts=-N
+  build-depends:
+      base >=4.7 && <5
+    , image-import
+  default-language: Haskell2010
+
+test-suite image-import-test
+  type: exitcode-stdio-1.0
+  main-is: Spec.hs
+  other-modules:
+      Paths_image_import
+  hs-source-dirs:
+      test
+  ghc-options: -threaded -rtsopts -with-rtsopts=-N
+  build-depends:
+      base >=4.7 && <5
+    , image-import
+  default-language: Haskell2010
