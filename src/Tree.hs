@@ -1,0 +1,29 @@
+
+data Tree a b = Node a [Tree a b] | Leaf b deriving (Eq, Show, Read)
+
+foldTree :: (a -> [c] -> c) -> (b -> c) -> Tree a b -> c
+foldTree _ f1 (Leaf x) = f1 x
+foldTree fn f1 (Node x xs) = fn x $ foldTree fn f1 <$> xs
+
+catMaybeTree :: Tree a (Maybe b) -> Maybe (Tree a b)
+catMaybeTree = foldTree (\x -> Just . Node x . catMaybes) (fmap Leaf)
+
+
+instance Bifunctor Tree where
+  bimap f s = foldTree (Node . f) (Leaf . s)
+
+instance Bifoldable Tree where
+  bifoldMap f = foldTree (\x xs -> f x <> mconcat xs)
+
+instance Bitraversable Tree where
+  bitraverse f s = foldTree (\x xs -> Node <$> f x <*> sequenceA xs) (fmap Leaf . s)
+
+instance Functor (Tree a) where
+  fmap = second
+
+instance Foldable (Tree a) where
+  foldMap = bifoldMap mempty
+
+instance Traversable (Tree a) where
+  sequenceA = bisequenceA . first pure
+
