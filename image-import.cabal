@@ -26,6 +26,7 @@ source-repository head
 library
   exposed-modules:
       Lib
+      Tree
   other-modules:
       Paths_image_import
   hs-source-dirs:
@@ -50,11 +51,15 @@ test-suite image-import-test
   type: exitcode-stdio-1.0
   main-is: Spec.hs
   other-modules:
+      TreeTest
       Paths_image_import
   hs-source-dirs:
       test
   ghc-options: -threaded -rtsopts -with-rtsopts=-N
   build-depends:
-      base >=4.7 && <5
+      HUnit
+    , base >=4.7 && <5
     , image-import
+    , test-framework
+    , test-framework-hunit
   default-language: Haskell2010

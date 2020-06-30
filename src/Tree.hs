@@ -1,3 +1,11 @@
+module Tree where
+
+import Control.Monad
+import Data.Maybe
+import Data.Bifunctor
+import Data.Bifoldable
+import Data.Bitraversable
+
 
 data Tree a b = Node a [Tree a b] | Leaf b deriving (Eq, Show, Read)
 
@@ -8,6 +16,8 @@ foldTree fn f1 (Node x xs) = fn x $ foldTree fn f1 <$> xs
 catMaybeTree :: Tree a (Maybe b) -> Maybe (Tree a b)
 catMaybeTree = foldTree (\x -> Just . Node x . catMaybes) (fmap Leaf)
 
+filterTree :: (b -> Bool) -> Tree a b -> Maybe (Tree a b)
+filterTree p = catMaybeTree . fmap (mfilter p . Just)
 
 instance Bifunctor Tree where
   bimap f s = foldTree (Node . f) (Leaf . s)
