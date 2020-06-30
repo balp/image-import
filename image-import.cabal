@@ -52,7 +52,6 @@ test-suite image-import-test
   main-is: Spec.hs
   other-modules:
       TreeTest
-      Paths_image_import
   hs-source-dirs:
       test
   ghc-options: -threaded -rtsopts -with-rtsopts=-N

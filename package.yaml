@@ -39,6 +39,7 @@ executables:
 tests:
   image-import-test:
     main:                Spec.hs
+    other-modules:       TreeTest
     source-dirs:         test
     ghc-options:
     - -threaded
