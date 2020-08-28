@@ -21,6 +21,9 @@ description:         Please see the README on GitHub at <https://github.com/balp
 
 dependencies:
 - base >= 4.7 && < 5
+- containers
+- time
+- filepath
 
 library:
   source-dirs: src
@@ -35,11 +38,16 @@ executables:
     - -with-rtsopts=-N
     dependencies:
     - image-import
+    - containers
+    - time
+    - filepath
 
 tests:
   image-import-test:
     main:                Spec.hs
-    other-modules:       TreeTest
+    other-modules:
+      - TreeTest
+      - LibraryTest
     source-dirs:         test
     ghc-options:
     - -threaded
@@ -47,6 +55,9 @@ tests:
     - -with-rtsopts=-N
     dependencies:
     - image-import
+    - containers
+    - time
+    - filepath
     - HUnit
     - test-framework
     - test-framework-hunit
